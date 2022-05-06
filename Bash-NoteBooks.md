@@ -465,3 +465,17 @@ ln -s ~\Desktop\Dev dev
 ![](img/2022-05-04-09-40-24-image.png)
 
 ![](img/2022-05-04-09-40-50-image.png)
+
+## Ingreso a Variables de entorno
+
+Utilizando la utilidad `printenv` o tambien con `env`, nos listara todas las variables de entorno del sistema.
+
+![](img/2022-05-06-05-25-45-image.png)
+
+Esta variables están definidas de acuerdo a las asignación \$VAR, por ejemplo si se quiere ir al home `cd $HOME`. Para saber cuantos archivos binarios cuentas, basta con que señale un:
+```bash
+echo $PATH
+```
+A esta dirección se encontraran los interpretes de lenguaje y los manejadores de paquetes como `apt`, `node`, `pip`, etc.
+
+Se puede crear nuestras propias variables de entorno, y definir por default estas variables para
