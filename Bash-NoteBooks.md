@@ -286,7 +286,7 @@ Un punto importante a mencionar, es que estos únicamente se encontraran disponi
 
 ### WildCards
 
-Los wildcards son comodines que nos ayuda a seccionar a un nuemero de directorio o archivos.
+Los wildcards son comodines que nos ayuda a seccionar a un número de directorio o archivos.
 
 ```bash
 ls *.html
