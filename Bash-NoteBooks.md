@@ -286,7 +286,7 @@ Un punto importante a mencionar, es que estos únicamente se encontraran disponi
 
 ### WildCards
 
-Los wildcards son comodines que nos ayuda a seccionar a un nuemero de directorio o archivos.
+Los wildcards son comodines que nos ayuda a seccionar a un número de directorio o archivos.
 
 ```bash
 ls *.html
@@ -478,6 +478,7 @@ Esta variables están definidas de acuerdo a las asignación \$VAR, por ejemplo 
 echo $PATH
 ```
 
+<<<<<<< HEAD
 A esta dirección se encontraran los interpretes de lenguaje, archivos binarios y los manejadores de paquetes como `apt`, `node`, `pip`, etc.
 
 Se puede crear nuestras propias variables de entorno, y definir por default estas variables para no únicamente utilizar `alias`.
@@ -530,3 +531,6 @@ Las variables de entorno nos ayuda en las configuraciones de los servidores en l
 which code
 # /mnt/c/Users/raycr/AppData/Local/Programs/Microsoft VS Code/bin/code
 ```
+
+=======
+Se puede crear nuestras propias variables de entorno, y definir por default estas variables para
