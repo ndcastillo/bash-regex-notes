@@ -473,9 +473,60 @@ Utilizando la utilidad `printenv` o tambien con `env`, nos listara todas las var
 ![](img/2022-05-06-05-25-45-image.png)
 
 Esta variables están definidas de acuerdo a las asignación \$VAR, por ejemplo si se quiere ir al home `cd $HOME`. Para saber cuantos archivos binarios cuentas, basta con que señale un:
+
 ```bash
 echo $PATH
 ```
-A esta dirección se encontraran los interpretes de lenguaje y los manejadores de paquetes como `apt`, `node`, `pip`, etc.
 
-Se puede crear nuestras propias variables de entorno, y definir por default estas variables para
+A esta dirección se encontraran los interpretes de lenguaje, archivos binarios y los manejadores de paquetes como `apt`, `node`, `pip`, etc.
+
+Se puede crear nuestras propias variables de entorno, y definir por default estas variables para no únicamente utilizar `alias`.
+
+Para ello debemos modificar el texto plano `.bashrc`, este se encuentra en el /home/ .
+
+![](img/2022-05-10-01-56-25-image.png)
+
+En el archivo **.bashrc**
+
+```r
+lh -lahS
+```
+
+Guardamos el archivo, y reiniciamos el interprete `bash`.
+
+```bash
+lh
+```
+
+![](img/2022-05-10-02-04-49-image.png)
+
+### + Agregar rutas de variables de entorno
+
+Si decidimos crear una nueva ruta de variables de entorno que contenga los binarios que yo quisiera, primero imprimimos las direccion establecidas con:
+
+```bash
+echo $PATH
+```
+
+![](img/2022-05-10-02-11-53-image.png)
+
+ahora para agregar una nueva ruta, realizamos el siguiente anexo en `.bashrc`:
+
+```bash
+PATH=$PATH:/home/davidcastillo/user/Music
+```
+
+![](img/2022-05-10-02-12-56-image.png)
+
+Ahora cuando hagamos el llamado a la variable `$PATH` veremos que se agrego una nueva ruta de variables de entorno.
+
+![](img/2022-05-10-02-13-49-image.png)
+
+Las variables de entorno nos ayuda en las configuraciones de los servidores en la nube, ocultar archivos, valores, y otros.
+
+## + COMANDOS DE BUSQUEDA
+
+```bash
+which code
+# /mnt/c/Users/raycr/AppData/Local/Programs/Microsoft VS Code/bin/code
+```
