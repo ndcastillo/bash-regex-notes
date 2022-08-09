@@ -532,8 +532,134 @@ which code
 # /mnt/c/Users/raycr/AppData/Local/Programs/Microsoft VS Code/bin/code
 ```
 
-=======
-Se puede crear nuestras propias variables de entorno, y definir por default estas variables para
+`witch` nos realiza la búsqueda de binarios, es decir programas ejecutables. 
+
+En resumen buscara los binarios ejecutables como variables de entorno.
+
+El comando principal de búsqueda sera `find`, y necesitamos especificar la ruta donde deseamos realizar la búsqueda, y agregar tres argumentos el de `-name` ,`-type` y `-size`.
+
+```bash
+find ./ -name file
+find ./ -name *.txt
+```
+
+Tiene otro argumento para especificar que tipo de archivo se requiere buscar si es **archivo (file)** o un **directorio (directory)**. Por ejemplo:
+
+```bash
+find ./ -type f -name index ## Para un Archivo
+find ./ -type d -name Documents ## Para un Documento
+find ./ -type fd -name "D*"
+```
+
+Tambien se pueden usar wildcards con este comando de búsqueda:
+
+```bash
+find ./ -type f -name *.log 
+find ./ -type f -name "I*"
+```
+
+<img src="img/2022-08-09-07-17-32-image.png" title="" alt="" width="228">
+
+Tambien se puede filtrar la búsqueda por el tamaño usando notación científica de $k,M,G$ etc. Se puede filtrar tanto dando medidas exactas, como también especificando si son mayores o menores a un tamaño en especifico.
+
+Iguales a 4KB
+
+```bash
+find ./ -size 4k
+```
+
+<img src="img/2022-08-09-07-18-43-image.png" title="" alt="" width="222">
+
+Mayores a 4KB
+
+```bash
+find ./ size +4k
+```
+
+<img src="img/2022-08-09-07-23-06-image.png" title="" alt="" width="362">
+
+Menores a 4KB
+
+```bash
+find ./ size -4k
+```
+
+<img src="img/2022-08-09-07-23-59-image.png" title="" alt="" width="238">
+
+Encontrar todos los archivos de texto en home y guardar la salida en un archivo `.txt`, y publicar un mensaje `echo` diciendo *Se han guardado exitosamente los nombres de los archivos .txt*.
+
+```bash
+find ./ -type f -name *.txt > mis-documentos-de-texto.txt && echo 'Los documentos de texto se han guardado exitosamente'
+```
+
+![](img/2022-08-09-07-29-34-image.png)
+
+Existen mas parámetros para revisar acerca del comando de búsqueda, como lo son `mindepth`, `maxdepth` y `-empty`. Esta es una tabla de sus funcionalidades y outputs.
+
+| Opción      | Salida                              |
+| ----------- | ----------------------------------- |
+| `-size`     | Busca por tamaño                    |
+| `-mindepth` | Asigna una nivel profundidad mínima |
+| `-maxdepth` | Asigna una nivel profundidad máxima |
+| `-type`     | Busca por el tipo de archivo        |
+| `-name`     | Busca por el nombre del archivo     |
+
+Podemos buscar archivos que se encuentren vacíos, estos nos pueden ayudar a eliminar archivos a través de un pipe operator.
+
+```bash
+find ./ -type d -empty
+```
+
+<img src="img/2022-08-09-07-43-31-image.png" title="" alt="" width="242">
+
+Si definimos la profundidad de directorios a través de `-maxdepth` en 2 carpetas utilizaremos el siguiente CLI.
+
+```bash
+find ./ -type d -maxdepth 2
+```
+
+<img src="img/2022-08-09-07-44-53-image.png" title="" alt="" width="208">
+
+Ahora definimos la profundidad mínima de 2 en la búsqueda, esto buscara mínimo en dos carpetas adelante de la ruta relativa.
+
+```bash
+find ./ -type d -mindepth 2
+```
+
+<img src="img/2022-08-09-07-46-31-image.png" title="" alt="" width="245">
+
+Por ultimo podemos usar el visor de texto `less` para observar de mejor manera los documentos o archivos buscados:
+
+```bash
+find ./ | less
+```
+
+### Ejercicios realizados
+
+1. Busca tus archivos mayores a 100Mb, con una profundidad máxima de 4, que comiencen por la letra d.
+
+```bash
+find ./ -maxdepth 4 -type f -name "d*" -size +100M
+```
+
+2. Busca los archivos que tengan extensión “.pdf” con una profundidad mínima de 2.
+
+```bash
+find ./ -mindepth 2 -type f -name *.pdf
+```
+
+3. Busca todas las carpetas que comiencen por la letra “A” con una profundidad máxima de 5, que estén vacías.
+
+```bash
+find ./ -maxdepth 5 -type d -name "A*" -empty
+```
+
+4. Busca todo lo que tenga una letra “j” que pese más de 1b. Luego guarda la salida en un archivo llamado “LosArchivosJ.txt” y cuando termine de hacer todo eso imprime un mensaje que diga “Comando terminado con éxito”.
+
+```bash
+find ./ -name "*d*" -size +1 > LosArchivosJ.txt && "Comando terminado con exito"
+```
+
 ## + COMPRIMIR ARCHIVOS
 
 ```bash
