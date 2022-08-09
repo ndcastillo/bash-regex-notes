@@ -534,3 +534,9 @@ which code
 
 =======
 Se puede crear nuestras propias variables de entorno, y definir por default estas variables para
+## + COMPRIMIR ARCHIVOS
+
+```bash
+mkdir carpeta
+tar -cvf carpeta.tar ./carpeta
+```
