@@ -1,3 +1,4 @@
+
 # Interprete Bash
 
 **Terminal:** Ventana que nos muestra el `prompt` $
@@ -657,12 +658,220 @@ find ./ -maxdepth 5 -type d -name "A*" -empty
 4. Busca todo lo que tenga una letra “j” que pese más de 1b. Luego guarda la salida en un archivo llamado “LosArchivosJ.txt” y cuando termine de hacer todo eso imprime un mensaje que diga “Comando terminado con éxito”.
 
 ```bash
-find ./ -name "*d*" -size +1 > LosArchivosJ.txt && "Comando terminado con exito"
+find ./ -name "*d*" -size +1 > LosArchivosJ.txt && echo "Comando terminado con exito"
 ```
 
-## + COMPRIMIR ARCHIVOS
+### Comando `grep`
+
+Utilizamos el comando `grep` para buscar texto dentro de un archivo, podemos expandir nuestro conocimiento a través de las expresiones regulares.
+
+Grep significa: Global Regular Expression Print, y se identifica como un comando regex (Regular Expression) para realizar su búsqueda.
+
+**Sintaxis**
+
+```bash
+grep [Expresión Regular] [Nombre de archivo]
+```
+
+Por ejemplo para el archivo `movies.csv`, que es una tabla de películas con 9125 registros de 6 variables, si queremos traernos los registros que contengan la palabra *the*, usamos el siguiente CLI:
+
+```bash
+grep the movies.csv
+```
+
+![](img/2022-08-09-10-33-30-image.png)
+
+Los argumentos de `grep` son los siguientes:
+
+| Opción | Función                        |
+| ------ | ------------------------------ |
+| `-m`   | Limita el numero de búsquedas  |
+| `-c`   | Numero de ocurrencias          |
+| `-v`   | Observaciones que NO coinciden |
+| `-i`   | Ignore case sensitive          |
+
+Para ver únicamente los 10 primeros resultados utilizamos `-m` en `grep`, de manera que:
+
+```bash
+grep -m 10 the movies.csv
+```
+
+<img src="img/2022-08-09-11-21-23-image.png" title="" alt="" width="375">
+
+```bash
+grep -c the movies.csv
+```
+
+<img src="img/2022-08-09-11-16-38-image.png" title="" alt="" width="261">
+
+```bash
+grep -ci the movies.csv
+```
+
+<img src="img/2022-08-09-11-16-59-image.png" title="" alt="" width="261">
+
+```bash
+grep -vci the emovies.csv
+```
+
+<img src="img/2022-08-09-11-18-42-image.png" title="" alt="" width="296">
+
+Ahora para contar el numero de saltos de lineas, numero de palabras y numero de bits tiene nuestro archivo podemos hacer uso de comando `wc` o Write Counts. De manera que:
+
+```bash
+wc movies.csv
+```
+
+<img title="" src="img/2022-08-09-11-30-44-image.png" alt="" width="294">
+
+La primera nos dice el numero de saltos de linea, que en este caso seria el numero de registros menos 1, dado a que el primer salto de linea es para los indices, despues tenemos el numero de letras usadas en el documentos. Por ultimo tenemos el tamaño en bits del archivo.
+
+```bash
+wc -l movies.csv    # Numero de lineas
+wc -w movies.csv    # Numero de palabras
+wc -b movies.csv    # Numero de bits 
+```
+
+Grep nos ayuda a filtrar lineas de código, buscar registros, filtrar textos, y demás.
+
+## Utilidades de Red
+
+Para saber información acerca de los dispositivos de red que tiene nuestro computador, servidor y/o otro dispositivo que funcione con Linex, podemos usar el comando `ifconfig`:
+
+```bash
+ifconfig
+```
+
+Nos aparecera a lado izquierdo el dispositivo de nuestra tarjeta de red, router, ont ,etc con la cual nuestro computador puede conectarse. Ademas nos da información acerca de protocolos de red, números de IP, puertos disponibles, etc. 
+
+Otra utilidad de Red es `ping`, utilizado para verificar una conexión con algun server o computador.
+
+```bash
+ping www.google.com
+```
+
+Ahora podemos utilizar tambien alguna interfaz o utilidades conocidas como `curl` que es muy usada en conexiones de red, peticiones HTTP, consultas a una API, servicios IOT, condificación/decodificación, etc. Una aplicación sencilla seria traernos el documento HTTP de google. (Ojito usaremos un pipe operator para guarlo en un archivo `index.html`).
+
+```bash
+curl www.google.com > index.html
+```
+
+<img src="img/2022-08-09-11-49-10-image.png" title="" alt="" width="348">
+
+Otra utilidad de red es `wget` que es muy semejante a `curl`, pero para este caso no es necesario usar el *pipe operator*, ahora directamente realiza la descarga. Es muy usado para descargar repositorios, instaladores entre otros.
+
+```bash
+wget www.google.com
+```
+
+![](img/2022-08-09-11-54-48-image.png)
+
+Un comando para ver la ruta que los paquetes IP siguen a traves de una red podemos usar el comando `traceroute www.google.com` en donde nos dara los routers, servidores y computadores por los que pase para llegar a su destino y ademas el tiempo de duración que le toma.
+
+```bash
+traceroute www.google.com
+```
+
+Para ver los dispositivos de red usamos `netstat`. Es muy similar a ifconfig, pero en forma de una tabla.
+
+```bash
+netstat
+```
+
+## Comprimir Archivos
+
+Creamos una carpeta con nombre carpeta 🥲, y luego a través del comando `tar`.
 
 ```bash
 mkdir carpeta
 tar -cvf carpeta.tar ./carpeta
 ```
+
+Tambien se puede comprimir a traves de un algoritmo gz, de agregando un nuevo parametro al CLI que seria una `-z`.
+
+```bash
+tar -cvzf carpeta.tar.gz ./carpeta
+```
+
+Para realizar la descompresión se usa el argumento de `-z` de forma que:
+
+```bash
+tar -xcvf carpeta.tar.gz
+```
+
+Otro CLI para comprimir es el `zip`:
+
+```bash
+zip -r carpeta.zip ./carpeta
+```
+
+Para la descompresión, se hace uso el CLI `unzip`.
+
+Para el comando `tar`
+
+| Opción | Función                                          |
+| ------ | ------------------------------------------------ |
+| `-c`   | Compresión                                       |
+| `-x`   | Descompresión                                    |
+| `-z`   | Especificación de compresión en `tar` o `tar.gz` |
+| `-v`   | Verbose, muestra de la lista.                    |
+
+Para el Comando `zip`
+
+| Opción  | Función       |
+| ------- | ------------- |
+| `zip`   | Compresión    |
+| `unzip` | Descompresión |
+
+## Manejo de Procesos
+
+El manejo de procesos no es util para realizar cierta configuraciones y monitoreo de lo que se esta ejecutando en nuestro ordenador.
+
+### Ver los procesos activos en la terminal `ps`
+
+Para ver los procesos que se ejecutan en el bash o la terminal usamos el comando `ps`.
+
+```bash
+ps
+```
+
+Todo proceso tiene un Id y un tiempo de ejecución.
+
+<img src="img/2022-08-10-07-38-38-image.png" title="" alt="" width="245">
+
+### Ver todos los procesos de manera detallada `top`
+
+Podemos observar los procesos mas detallados utilizando el comando `top`, observaremos el uso de CPU, RAM, su Id entre otros parámetros característicos de un procesos.
+
+![](img/2022-08-10-07-43-16-image.png)
+
+Podemos filtrar el procedimiento a traves la tecla "u" y colocar el usuario, la tecla "h" se para entrar al centro de ayuda y la tecla "q" para salir de la interfaz.
+
+Otra terminal de administración de procesos es **htop** la cual es un poco mas amigable, la instalamos con la paqueteria apt:
+
+```bash
+sudo apt-get install htop
+```
+
+![](img/2022-08-10-07-48-29-image.png)
+
+### Matar un proceso `kill`
+
+Para matar un proceso lo realizamos a traves del comando `kill` y con el Id del proceso, de forma que:
+
+```bash
+kill -9 129
+```
+
+![](img/2022-08-10-07-50-17-image.png)
+
+Para terminar el proceso inmediatamente
+
+```bash
+killall -9 129
+```
+### Procesos de Foreground y Background
+
+El Foreground y el Background son estados de los procesos, y seran los que nos diran que se encuentran ejecutando (running) o que se encuentran parados (stopped).
+Para ello utilizamos `cat > document.txt` y nos econtraremos con la inserción del documento de texto, pero en vez de salir del editor de texto con Ctrl+D utilizamos Ctrl+Z y supenderemos nuestro proceso.
+
