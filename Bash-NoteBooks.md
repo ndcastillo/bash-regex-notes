@@ -1,4 +1,3 @@
-
 # Interprete Bash
 
 **Terminal:** Ventana que nos muestra el `prompt` $
@@ -469,7 +468,7 @@ ln -s ~\Desktop\Dev dev
 
 ## Ingreso a Variables de entorno
 
-Utilizando la utilidad `printenv` o tambien con `env`, nos listara todas las variables de entorno del sistema.
+Utilizando la utilidad `printenv` o también con `env`, nos listara todas las variables de entorno del sistema.
 
 ![](img/2022-05-06-05-25-45-image.png)
 
@@ -870,8 +869,42 @@ Para terminar el proceso inmediatamente
 ```bash
 killall -9 129
 ```
+
 ### Procesos de Foreground y Background
 
 El Foreground y el Background son estados de los procesos, y seran los que nos diran que se encuentran ejecutando (running) o que se encuentran parados (stopped).
-Para ello utilizamos `cat > document.txt` y nos econtraremos con la inserción del documento de texto, pero en vez de salir del editor de texto con Ctrl+D utilizamos Ctrl+Z y supenderemos nuestro proceso.
+Para ello utilizamos `cat > document.txt` y nos encontraremos con la inserción del documento de texto, pero en vez de salir del editor de texto con Ctrl+D utilizamos Ctrl+Z y suspenderemos nuestro proceso.
 
+<img src="img/2022-08-10-21-29-53-image.png" title="" alt="" width="410">
+
+A través de `jobs` veremos los procesos que se encuentra suspendidos.
+
+<img title="" src="img/2022-08-10-21-30-36-image.png" alt="" width="336">
+
+Para correr de nuevo el proceso hacemos uso de `fg [numero]` 
+
+<img src="img/2022-08-10-21-31-50-image.png" title="" alt="" width="258">
+
+Otras maneras de llevar un proceso al background es usar:
+
+```bash
+cat > document.txt &
+bg 1
+```
+
+## Concatenar archivos .txt
+
+Para realizar la concatenación de archivos podemos realizar con el comando `cat`, y definiendo las entradas de archivos de texto, luego usaremos el pipe operator `>` para señalar a  que archivo de texto queremos enviar la concatenación.
+
+```bash
+cat > hola.txt
+Hola, # Darle Ctrl+D para salir guardando los cambios
+cat > nombre.txt
+David! 
+
+cat hola.txt nombre.txt > saludo.txt
+cat saludo.txt
+# Hola, David!
+```
+
+<img src="img/2022-08-18-15-26-30-image.png" title="" alt="" width="502">
